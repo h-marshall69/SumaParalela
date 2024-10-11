@@ -25,13 +25,13 @@ try:
         """)
 
         # Inserción de números en partes
-        total_numeros = 1000000  # Puedes ajustar esto si necesitas menos o más
-        batch_size = 10000  # Tamaño del lote
+        total_numeros = 1000000
+        batch_size = 10000
         for i in range(1, total_numeros + 1, batch_size):
             # Crear una lista de tuplas para el lote actual
             numeros = [(j,) for j in range(i, min(i + batch_size, total_numeros + 1))]
             cursor.executemany("INSERT INTO suma_paralela (numero) VALUES (%s)", numeros)
-            connection.commit()  # Confirmar cambios para cada lote
+            connection.commit() 
             print(f"Registros insertados en lote desde {i} hasta {min(i + batch_size - 1, total_numeros)}: {cursor.rowcount}")
 
 except Error as ex:
